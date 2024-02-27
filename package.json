@@ -3,15 +3,23 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "android": "react-native run-android",
-    "ios": "react-native run-ios",
-    "lint": "eslint .",
-    "start": "react-native start",
+    "android": "npx react-native run-android",
+    "ios": "npx react-native run-ios",
+    "ios:small": "npx react-native run-ios --simulator='iPhone SE (2nd generation)'",
+    "ios:device": "npx react-native run-ios --device",
+    "start": "npx react-native start",
+    "start:reset": "npx react-native start --reset-cache",
+    "reset:watchman": "watchman watch-del-all && watchman shutdown-server",
+    "nuke:ios": "rm -rf node_modules && rm -rf ios/Pods && yarn && cd ios && bundle exec pod install",
+    "pods": "cd ios && bundle exec pod install && cd ..",
     "test": "jest"
   },
   "dependencies": {
+    "@react-navigation/native": "^6.1.12",
     "react": "18.2.0",
-    "react-native": "0.73.5"
+    "react-native": "0.73.5",
+    "react-native-safe-area-context": "^4.9.0",
+    "react-native-screens": "^3.29.0"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
