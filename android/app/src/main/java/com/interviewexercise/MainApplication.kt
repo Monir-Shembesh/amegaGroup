@@ -1,4 +1,6 @@
 package com.interviewexercise
+import android.os.Bundle;
+
 
 import android.app.Application
 import com.facebook.react.PackageList
@@ -41,5 +43,8 @@ class MainApplication : Application(), ReactApplication {
       load()
     }
     ReactNativeFlipper.initializeFlipper(this, reactNativeHost.reactInstanceManager)
+  }
+  override fun onCreate(savedInstanceState: Bundle?) {
+    super.onCreate(null)
   }
 }
