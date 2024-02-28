@@ -1,10 +1,28 @@
-import {StyleSheet, Text, View} from 'react-native';
-import React from 'react';
+import {Button, StyleSheet, Text, View} from 'react-native';
+import React, {useState} from 'react';
+import IpMaskedInput from '../core/inputs/IpMaskedInput';
 
-const NetworkTrackerSection = () => {
+interface props {
+  onFetchIpInfo: (ip: string) => void;
+}
+
+const NetworkTrackerSection = ({onFetchIpInfo}: props) => {
+  const [ipValue, setIpValue] = useState('');
+
+  const fetchIpInfoHandler = () => {
+    onFetchIpInfo(ipValue);
+  };
+
   return (
     <View style={styles.mainContainer}>
       <Text style={styles.title}>NetworkTrackerSection</Text>
+      <IpMaskedInput value={ipValue} onChange={setIpValue} />
+      {/* It is better to use Pressable component but will skip building it for the sake of time management */}
+      <Button
+        onPress={fetchIpInfoHandler}
+        title="Fetch IP info"
+        color={'white'}
+      />
     </View>
   );
 };
@@ -22,5 +40,6 @@ const styles = StyleSheet.create({
     color: 'white',
     fontWeight: 'bold',
     fontSize: 20,
+    marginBottom: '10%',
   },
 });

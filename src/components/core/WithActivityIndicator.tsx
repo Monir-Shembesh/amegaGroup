@@ -2,10 +2,12 @@ import React, {PropsWithChildren} from 'react';
 import {ActivityIndicator, StyleSheet, View} from 'react-native';
 
 type Props = {
+  color: string;
   isLoading: boolean;
 };
 
 const WithActivityIndicator = ({
+  color,
   isLoading,
   children,
 }: PropsWithChildren<Props>) => {
@@ -13,7 +15,7 @@ const WithActivityIndicator = ({
     <>
       {isLoading ? (
         <View style={styles.activityContainer}>
-          <ActivityIndicator color={'blue'} />
+          <ActivityIndicator color={color} />
         </View>
       ) : (
         <>{children}</>
