@@ -31,8 +31,8 @@ export default NetworkTrackerSection;
 
 const styles = StyleSheet.create({
   mainContainer: {
+    flex: 1,
     backgroundColor: 'blue',
-    flex: 0.35,
     alignItems: 'center',
     justifyContent: 'center',
   },

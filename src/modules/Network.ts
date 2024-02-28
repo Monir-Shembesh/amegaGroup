@@ -53,6 +53,7 @@ namespace Network {
 
   export interface RtkState {
     ip: string;
+    imageUrl: string;
   }
 
   export const cleanNetworkInfo = (body: IUserNetworkInfoQueryRawResponse) => {
