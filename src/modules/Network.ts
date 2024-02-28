@@ -51,6 +51,10 @@ namespace Network {
     isp: string;
   }
 
+  export interface RtkState {
+    ip: string;
+  }
+
   export const cleanNetworkInfo = (body: IUserNetworkInfoQueryRawResponse) => {
     return {
       ip: body.ip,

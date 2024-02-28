@@ -1,17 +1,21 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {StyleSheet, View} from 'react-native';
 import {NetworkApi} from '../redux/rootApis';
 import NetworkInfoBar from '../components/network/NetworkInfoBar';
 import NetworkTrackerSection from '../components/network/NetworkTrackerSection';
+import Redux from '../modules/Redux';
+import {setIpAddress} from '../redux/rootActions';
 
 const Home = () => {
-  const [ipSearchValue, setIpSearchValue] = useState('');
-  const {data, isLoading, isError} = NetworkApi.useGetUserNetInfoQuery(
-    ipSearchValue,
-    {
-      refetchOnMountOrArgChange: true,
-    },
-  );
+  const dispatch = Redux.useAppDispatch();
+  const {ip} = Redux.useAppSelector(state => state.network);
+  const {data, isLoading, isError} = NetworkApi.useGetUserNetInfoQuery(ip, {
+    refetchOnMountOrArgChange: true,
+  });
+
+  const setIpSearchValue = (value: string) => {
+    dispatch(setIpAddress(value));
+  };
 
   const renderScreen = () => {
     return (
