@@ -1,5 +1,6 @@
 import React from 'react';
 import {NativeStackNavigationOptions} from '@react-navigation/native-stack';
+import {View} from 'react-native';
 
 namespace Navigation {
   export interface IRenderTabIconsProps {
@@ -42,17 +43,17 @@ namespace Navigation {
     {
       id: 0,
       name: 'Home',
-      component: <></>,
+      component: () => <View />,
     },
     {
       id: 1,
       name: 'Market Data',
-      component: <></>,
+      component: () => <View />,
     },
     {
       id: 2,
       name: 'Profile',
-      component: <></>,
+      component: () => <View />,
     },
   ];
 
@@ -60,7 +61,7 @@ namespace Navigation {
     {
       id: 3,
       name: 'Controlled Web Socket',
-      component: <></>,
+      component: () => <View />,
     },
   ];
 }
