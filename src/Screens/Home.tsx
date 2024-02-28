@@ -1,15 +1,20 @@
 import React from 'react';
-import {Text, View} from 'react-native';
+import {StyleSheet, Text, View} from 'react-native';
 import {NetworkApi} from '../redux/rootApis';
 import WithActivityIndicator from '../components/core/WithActivityIndicator';
+import NetworkInfoBar from '../components/network/NetworkInfoBar';
+import NetworkTrackerSection from '../components/network/NetworkTrackerSection';
 
 const Home = () => {
   const {data, isLoading, isError} = NetworkApi.useGetUserNetInfoQuery('');
 
   const renderScreen = () => {
     return (
-      <View>
-        <Text>Home</Text>
+      <View style={styles.mainContainer}>
+        {/* network tracker section */}
+        <NetworkTrackerSection />
+        {/* network info bar */}
+        {data ? <NetworkInfoBar networkInfo={data} /> : null}
       </View>
     );
   };
@@ -27,5 +32,11 @@ const Home = () => {
     </WithActivityIndicator>
   );
 };
+
+const styles = StyleSheet.create({
+  mainContainer: {
+    flex: 1,
+  },
+});
 
 export default Home;

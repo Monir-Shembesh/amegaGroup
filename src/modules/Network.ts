@@ -44,8 +44,12 @@ namespace Network {
     timezone: NetworkTimezoneInfo;
   }
 
-  export interface IUserNetworkInfoQueryResponse
-    extends Partial<IUserNetworkInfoQueryRawResponse> {}
+  export interface IUserNetworkInfoQueryResponse {
+    ip: string;
+    location: string;
+    timeZone: string;
+    isp: string;
+  }
 
   export const cleanNetworkInfo = (body: IUserNetworkInfoQueryRawResponse) => {
     return {
