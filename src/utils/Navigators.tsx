@@ -36,10 +36,6 @@ export const TabScreens = () => {
       backBehavior="none"
       screenOptions={({route}) => ({
         // tabBarIcon: ({focused}) => renderTabIcon({route, focused}),
-        // tabBarLabel: ({focused}) => {
-        //   return <NavigationTabLabel route={route} focused={focused} />;
-        // },
-        headerShown: false,
       })}>
       {/* if we do not intend to render tabs conditionally
         then we can just use .map() on AppTabs and display tabs dinamically */}
