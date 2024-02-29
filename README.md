@@ -1,80 +1,50 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
 
-# Getting Started
+# Amega Group exercise
 
->**Note**: Make sure you have completed the [React Native - Environment Setup](https://reactnative.dev/docs/environment-setup) instructions till "Creating a new application" step, before proceeding.
+A brief description of what this project does and who it's for
 
-## Step 1: Start the Metro Server
+## Prerequisites
 
-First, you will need to start **Metro**, the JavaScript _bundler_ that ships _with_ React Native.
+- [Watchman](https://facebook.github.io/watchman/)
+- [Xcode](https://developer.apple.com/xcode/)
+- [Xcode dev tools](downloaded-through-prefrences)
+- [Cocoapods 1.14.3](https://cocoapods.org/)
+- [Ruby 3.3.0](https://www.ruby-lang.org/en/)
+- [JDK zulu17](https://reactnative.dev/docs/environment-setup?platform=android#:~:text=Java%20Development%20Kit)
+- [Nodejs 20.11.0](https://nodejs.org/en)
 
-To start Metro, run the following command from the _root_ of your React Native project:
+#### tools like asdf or mise can automatically detect the project `.tool-version` file
 
-```bash
-# using npm
-npm start
+## BUILDING (ios)
 
-# OR using Yarn
-yarn start
-```
+- run `yarn` at the root directory and wait for hte node modules to be installed
+- run `yarn pods` at the root directory and wait for the cocoapods to be installed
+- open `XCODE` and select the `.xcworkspace` file that is located inside the `ios` folder
+- from `XCODE` top menu select project and then clean build project
+- from `XCODE` top menu select project and then build. Now you are ready to move to the running phase
 
-## Step 2: Start your Application
+## RUNNING
 
-Let Metro Bundler run in its _own_ terminal. Open a _new_ terminal from the _root_ of your React Native project. Run the following command to start your _Android_ or _iOS_ app:
+###  Running using CLI (ios)
 
-### For Android
+- run `yarn ios` at the root directory
 
-```bash
-# using npm
-npm run android
+###  Running using XCODE
 
-# OR using Yarn
-yarn android
-```
+- select the desired emulator from xcode and press the play button
 
-### For iOS
+## Folder structure
 
-```bash
-# using npm
-npm run ios
+- `src`: This folder is the main container of all the code inside the application.
+  - `components`: Folder that contains all the application components.
+  - `modules`: this folder act as the main housing for computing functions and types for all the features.
+  - `redux`: RTK and RtkQuery main directory.
+  - `navigation`: Folder to store the navigators.
+  - `screens`: Application UI screens.
+  - `index.ts`: entry Layer 2.
+- `App.js`: entry layer 1.
+- `index.js`: Entry point of the application.
 
-# OR using Yarn
-yarn ios
-```
+## Styleguide
 
-If everything is set up _correctly_, you should see your new app running in your _Android Emulator_ or _iOS Simulator_ shortly provided you have set up your emulator/simulator correctly.
-
-This is one way to run your app — you can also run it directly from within Android Studio and Xcode respectively.
-
-## Step 3: Modifying your App
-
-Now that you have successfully run the app, let's modify it.
-
-1. Open `App.tsx` in your text editor of choice and edit some lines.
-2. For **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Developer Menu** (<kbd>Ctrl</kbd> + <kbd>M</kbd> (on Window and Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (on macOS)) to see your changes!
-
-   For **iOS**: Hit <kbd>Cmd ⌘</kbd> + <kbd>R</kbd> in your iOS Simulator to reload the app and see your changes!
-
-## Congratulations! :tada:
-
-You've successfully run and modified your React Native App. :partying_face:
-
-### Now what?
-
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [Introduction to React Native](https://reactnative.dev/docs/getting-started).
-
-# Troubleshooting
-
-If you can't get this to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
-
-# Learn More
-
-To learn more about React Native, take a look at the following resources:
-
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
-# amegaGroup
+For coding styling this repo follows ESLint standards and [Airbnb's styleguide](https://github.com/airbnb/javascript) with a few exceptions that you can find on the [.eslintrc](./.eslintrc)
