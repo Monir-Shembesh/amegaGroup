@@ -2,7 +2,6 @@ import {NativeStackNavigationOptions} from '@react-navigation/native-stack';
 import Home from '../Screens/Home';
 import MarketData from '../Screens/MarketData';
 import Profile from '../Screens/Profile';
-import ControlledWebSocket from '../Screens/ControlledWebSocket';
 
 namespace Navigation {
   export interface IRenderTabIconsProps {
@@ -26,7 +25,6 @@ namespace Navigation {
 
   export type AppScreenParamList = {
     AppTabs: undefined;
-    ['Controlled Web Socket']: undefined;
   };
 
   export interface AppScreenStructure<T> {
@@ -59,13 +57,7 @@ namespace Navigation {
     },
   ];
 
-  export const AppScreens: AppScreenStructure<AppScreenParamList>[] = [
-    {
-      id: 3,
-      name: 'Controlled Web Socket',
-      component: ControlledWebSocket,
-    },
-  ];
+  export const AppScreens: AppScreenStructure<AppScreenParamList>[] = [];
 }
 
 export default Navigation;
