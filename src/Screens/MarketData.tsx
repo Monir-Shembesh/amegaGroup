@@ -1,36 +1,37 @@
 import React, {useCallback, useEffect, useRef, useState} from 'react';
 import {Button, FlatList, StyleSheet, Text, View} from 'react-native';
 import SocketSpace from '../modules/OpenSocket';
+import {TickerApi, initSocket} from '../redux/rootApis';
+import Redux from '../modules/Redux';
 
 const ITEM_HEIGHT = 20;
 
 const MarketData = () => {
-  const [socketState, setSocketState] = React.useState('connecting');
-  const [data, setData] = useState<SocketSpace.IMessageResponse[]>([]);
+  const dispatch = Redux.useAppDispatch();
+  const [socketState, setSocketState] = useState('connecting');
+  const [streamDataFromCache, {data}] = TickerApi.useLazyGetDataStreamQuery();
+  const [isStreaming, setIsStreaming] = useState(false);
   const [error, setError] = useState('');
   const socket = useRef(new WebSocket(SocketSpace.socketUrl)).current;
-
-  const handleItemInsertion = (item: string) => {
-    setData(prevState => [JSON.parse(item), ...prevState]);
-  };
 
   useEffect(() => {
     socket.onopen = () => {
       setSocketState('connected');
-    };
-
-    socket.onmessage = e => {
-      handleItemInsertion(e.data);
+      streamData();
     };
 
     socket.onclose = () => {
-      console.log('closed');
+      setIsStreaming(false);
+      dispatch(TickerApi.util.resetApiState());
       setSocketState('disconnected');
     };
 
     socket.onerror = e => {
       setError(e.message);
     };
+
+    initSocket(socket);
+    streamDataFromCache();
 
     return () => {
       socket.close();
@@ -39,17 +40,18 @@ const MarketData = () => {
 
   const streamData = () => {
     socket.send(JSON.stringify(SocketSpace.connectionMessage('SUBSCRIBE')));
+    setIsStreaming(true);
   };
 
   const stopData = () => {
-    socket.send(JSON.stringify(SocketSpace.connectionMessage('UNSUBSCRIBE')));
+    socket.close();
   };
 
   const renderItem = useCallback(
     ({item}: {item: SocketSpace.IMessageResponse}) => {
       return (
         <Text style={styles.tickerText}>
-          {item.s} | {item.e}
+          {item.s} | {item.q} | {item.p}
         </Text>
       );
     },
@@ -60,17 +62,14 @@ const MarketData = () => {
     <View style={styles.mainContainer}>
       <Text>{socketState}</Text>
       {error ? <Text>{error}</Text> : null}
-      <Button onPress={streamData} title="stream data" color={'black'} />
       <Button onPress={stopData} title="stop stream" color={'red'} />
-
       <Text style={styles.dataTitle}>Data Below:</Text>
-
-      {data ? (
+      {data && isStreaming ? (
         <FlatList
           data={data}
           renderItem={renderItem}
-          keyExtractor={(item: SocketSpace.IMessageResponse) =>
-            `${item.a}${item.T}`
+          keyExtractor={(item: SocketSpace.IMessageResponse, index: number) =>
+            item ? `${item.a}${item.T}` : index.toString()
           }
           getItemLayout={(_data, index) => ({
             length: ITEM_HEIGHT,
