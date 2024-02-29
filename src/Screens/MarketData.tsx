@@ -1,10 +1,9 @@
-import React, {useCallback, useEffect, useRef, useState} from 'react';
-import {Button, FlatList, StyleSheet, Text, View} from 'react-native';
+import React, {useEffect, useRef, useState} from 'react';
+import {Button, StyleSheet, Text, View} from 'react-native';
 import SocketSpace from '../modules/OpenSocket';
 import {TickerApi, initSocket} from '../redux/rootApis';
 import Redux from '../modules/Redux';
-
-const ITEM_HEIGHT = 20;
+import TickerMessageList from '../components/ticker/TickerMessageList';
 
 const MarketData = () => {
   const dispatch = Redux.useAppDispatch();
@@ -47,17 +46,6 @@ const MarketData = () => {
     socket.close();
   };
 
-  const renderItem = useCallback(
-    ({item}: {item: SocketSpace.IMessageResponse}) => {
-      return (
-        <Text style={styles.tickerText}>
-          {item.s} | {item.q} | {item.p}
-        </Text>
-      );
-    },
-    [],
-  );
-
   return (
     <View style={styles.mainContainer}>
       <Text>{socketState}</Text>
@@ -65,22 +53,8 @@ const MarketData = () => {
       <Button onPress={stopData} title="stop stream" color={'red'} />
       <Text style={styles.dataTitle}>Data Below:</Text>
       {data && isStreaming ? (
-        <FlatList
-          data={data}
-          renderItem={renderItem}
-          keyExtractor={(item: SocketSpace.IMessageResponse, index: number) =>
-            item ? `${item.a}${item.T}` : index.toString()
-          }
-          getItemLayout={(_data, index) => ({
-            length: ITEM_HEIGHT,
-            offset: ITEM_HEIGHT * index,
-            index,
-          })}
-          removeClippedSubviews
-          maxToRenderPerBatch={1}
-          initialNumToRender={1}
-          updateCellsBatchingPeriod={500}
-        />
+        // note: flashlist from shopify should be tested in release mode
+        <TickerMessageList data={data} isFlashList />
       ) : null}
     </View>
   );
@@ -92,9 +66,6 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: 'black',
     fontSize: 18,
-  },
-  tickerText: {
-    height: ITEM_HEIGHT,
   },
 });
 
