@@ -5,13 +5,16 @@ import {
   ThunkMiddleware,
 } from '@reduxjs/toolkit';
 import combinedReducers from './combinedReducers';
-import {NetworkApi} from './rootApis';
+import {NetworkApi, TickerApi} from './rootApis';
 
 //ts-type for combined reducer
 export type StoreState = ReturnType<typeof combinedReducers>;
 
 //rtk query/redux middlewares
-const middlewares: ThunkMiddleware[] = [NetworkApi.middleware];
+const middlewares: ThunkMiddleware[] = [
+  NetworkApi.middleware,
+  TickerApi.middleware,
+];
 
 // create redux store
 const store = configureStore({
