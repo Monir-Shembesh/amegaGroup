@@ -1,9 +1,10 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useEffect, useMemo, useRef, useState} from 'react';
 import {Button, StyleSheet, Text, View} from 'react-native';
 import SocketSpace from '../modules/OpenSocket';
 import {TickerApi, initSocket} from '../redux/rootApis';
 import Redux from '../modules/Redux';
 import TickerMessageList from '../components/ticker/TickerMessageList';
+import TickerLineChart from '../components/ticker/LineChart';
 
 const MarketData = () => {
   const dispatch = Redux.useAppDispatch();
@@ -46,8 +47,18 @@ const MarketData = () => {
     socket.close();
   };
 
+  const filterChartData = useMemo(() => {
+    return data
+      ?.map(item => {
+        const numberValue = parseFloat(item.p);
+        return Number.isNaN(numberValue) ? null : numberValue;
+      })
+      .filter(item => item !== null);
+  }, [data]);
+
   return (
     <View style={styles.mainContainer}>
+      <TickerLineChart data={filterChartData ? filterChartData : []} />
       <Text>{socketState}</Text>
       {error ? <Text>{error}</Text> : null}
       <Button onPress={stopData} title="stop stream" color={'red'} />
